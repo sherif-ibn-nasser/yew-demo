@@ -1,0 +1,6 @@
+
+# A sem-ver version requirement of trunk required for this project
+trunk-version = "*"
+
+[build]
+dist = "docs"

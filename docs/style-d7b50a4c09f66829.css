@@ -26,3 +26,7 @@
     background: rgb(36, 36, 36);
     cursor: pointer;
 }
+
+#dec-btn {
+    margin-top: 100px;
+}

@@ -1,7 +1,8 @@
 use yew::prelude::*;
 
 enum Msg {
-    AddOne,
+    Inc,
+    Dec,
 }
 
 struct CounterComp {
@@ -22,15 +23,20 @@ impl Component for CounterComp {
         html! {
             <div class="container">
                 <p>{ self.count }</p>
-                <button onclick={ link.callback(|_| Msg::AddOne) }>{ "Inc" }</button>
+                <button onclick={ link.callback(|_| Msg::Inc) }>{ "Inc" }</button>
+                <button id="dec-btn" onclick={ link.callback(|_| Msg::Dec) }>{ "Dec" }</button>
             </div>
         }
     }
 
     fn update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
         match msg {
-            Msg::AddOne => {
+            Msg::Inc => {
                 self.count += 1;
+                true
+            }
+            Msg::Dec => {
+                self.count -= 1;
                 true
             }
         }
