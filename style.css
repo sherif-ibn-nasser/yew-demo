@@ -27,6 +27,6 @@
     cursor: pointer;
 }
 
-#dec-btn {
+.margined-btn {
     margin-top: 100px;
 }

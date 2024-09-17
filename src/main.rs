@@ -1,48 +1,80 @@
 use yew::prelude::*;
+use yew_router::prelude::*;
 
-enum Msg {
-    Inc,
-    Dec,
+#[derive(Clone, Routable, PartialEq)]
+enum Route {
+    #[at("/")]
+    Home,
+    #[at("/app")]
+    App,
+    #[not_found]
+    #[at("/404")]
+    NotFound,
 }
 
-struct CounterComp {
-    count: i64,
+#[function_component(Home)]
+fn home() -> Html {
+    let navigator = use_navigator().unwrap();
+
+    html! {
+        <div class="container">
+            <button onclick = {move |_| navigator.push(&Route::App)} >
+                { "Go to app" }
+            </button>
+        </div>
+    }
 }
 
-impl Component for CounterComp {
-    type Message = Msg;
-
-    type Properties = ();
-
-    fn create(_ctx: &Context<Self>) -> Self {
-        Self { count: 0 }
+#[function_component(App)]
+fn app() -> Html {
+    let navigator = use_navigator().unwrap();
+    let counter = use_state(|| 0i64);
+    let onclick_inc = {
+        let counter = counter.clone();
+        Callback::from(move |_| counter.set(*counter + 1))
+    };
+    let onclick_dec = {
+        let counter = counter.clone();
+        Callback::from(move |_| counter.set(*counter - 1))
+    };
+    let onclick_back = Callback::from(move |_| {
+        navigator.back();
+    });
+    html! {
+        <div class="container">
+            <p>{ *counter }</p>
+            <button onclick = {onclick_inc}>{ "Inc" }</button>
+            <button class="margined-btn" onclick = {onclick_dec} >{ "Dec" }</button>
+            <button class="margined-btn" onclick = {onclick_back} >{ "Back" }</button>
+        </div>
     }
+}
 
-    fn view(&self, ctx: &Context<Self>) -> Html {
-        let link = ctx.link();
-        html! {
-            <div class="container">
-                <p>{ self.count }</p>
-                <button onclick={ link.callback(|_| Msg::Inc) }>{ "Inc" }</button>
-                <button id="dec-btn" onclick={ link.callback(|_| Msg::Dec) }>{ "Dec" }</button>
-            </div>
-        }
+#[function_component(NotFound)]
+fn not_found() -> Html {
+    html! {
+        <h1>{ "404 - Page Not Found" }</h1>
     }
+}
 
-    fn update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
-        match msg {
-            Msg::Inc => {
-                self.count += 1;
-                true
-            }
-            Msg::Dec => {
-                self.count -= 1;
-                true
-            }
-        }
+fn switch(route: Route) -> Html {
+    match route {
+        Route::Home => html! { <Home /> },
+        Route::App => html! { <App /> },
+        Route::NotFound => html! { <NotFound /> },
+    }
+}
+
+// Root component with router
+#[function_component(Root)]
+fn root() -> Html {
+    html! {
+        <BrowserRouter>
+            <Switch<Route> render={switch} />
+        </BrowserRouter>
     }
 }
 
 fn main() {
-    yew::Renderer::<CounterComp>::new().render();
+    yew::Renderer::<Root>::new().render();
 }
