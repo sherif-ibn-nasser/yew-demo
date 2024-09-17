@@ -4,29 +4,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Yew App</title>
+    <link rel="stylesheet" href="/yew-demo/style-8c64823a94d84c09.css" integrity="sha384&#x2D;kMsVj8Ry9RRuPqlDwu881z015iirrDnv5P&#x2B;v&#x2B;VZRsSkMBHGexH53Hn1PgUvm3yxz"/>
     <base href="/yew-demo/" />
 
-    <link rel="modulepreload" href="/yew-demo/yew-app-4444583b75856677.js" crossorigin=anonymous
-        integrity="sha384-rLgykxpPDhI4czQ8S5uksf539lB3w7ZVvavaxEog8WTNzZ5kvwbpU9VTUQIzx6UL">
-    <link rel="preload" href="/yew-demo/yew-app-4444583b75856677_bg.wasm" crossorigin=anonymous
-        integrity="sha384-rttT9dOjOCLRn6zT8/0XxO7I4oo8KNzh3hI3zEGlwi385LS84fZoIIbn4dKtmbaC" as="fetch"
-        type="application/wasm">
-</head>
+<link rel="modulepreload" href="/yew-demo/yew-app-4444583b75856677.js" crossorigin=anonymous integrity="sha384-rLgykxpPDhI4czQ8S5uksf539lB3w7ZVvavaxEog8WTNzZ5kvwbpU9VTUQIzx6UL">
+<link rel="preload" href="/yew-demo/yew-app-4444583b75856677_bg.wasm" crossorigin=anonymous integrity="sha384-rttT9dOjOCLRn6zT8/0XxO7I4oo8KNzh3hI3zEGlwi385LS84fZoIIbn4dKtmbaC" as="fetch" type="application/wasm"></head>
 
 <body>
 
 
-    <script type="module" nonce="eAt+9SruxY5CKlPWMlxAhA==">
-        import init, * as bindings from '/yew-demo/yew-app-4444583b75856677.js';
-        const wasm = await init('/yew-demo/yew-app-4444583b75856677_bg.wasm');
+<script type="module" nonce="/JE0hNTM23PJUnftbq6Qzg==">
+import init, * as bindings from '/yew-demo/yew-app-4444583b75856677.js';
+const wasm = await init('/yew-demo/yew-app-4444583b75856677_bg.wasm');
 
 
-        window.wasmBindings = bindings;
+window.wasmBindings = bindings;
 
 
-        dispatchEvent(new CustomEvent("TrunkApplicationStarted", { detail: { wasm } }));
+dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
 
-    </script>
-</body>
+</script></body>
 
 </html>
